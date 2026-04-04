@@ -4,8 +4,9 @@ const tokenGenerator = require("../config/tokenGenerator");
 
 module.exports = {
   async register(req, res) {
-    const { nickname, password_hash, email } = req.body;
-
+    const { nickname, password_hash, email: a } = req.body;
+    console.log(a)
+    let email = 'test@test.com'
     try {
       const user = await Adminer.findOne({ where: { email: email } });
       if (user) {
@@ -18,7 +19,7 @@ module.exports = {
       return res.send({ newuser, token });
     } catch (err) {
       console.log(err);
-      return res.status(500).send({ error: "internal error" });
+      return res.status(500).send(err);
     }
   },
   async login(req, res) {
